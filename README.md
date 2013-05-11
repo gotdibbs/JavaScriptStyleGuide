@@ -22,6 +22,7 @@ JavaScript Style Guide
   	6. [Type Checking](#types)
   	6. [Namespacing](#namespacing)
   	7. [Global](#global)
+  	8. [Errors](#errors)
   3. Implementation
   	1. [Prototypes](#prototypes)
   	2. [Async](#async)
@@ -33,7 +34,7 @@ JavaScript Style Guide
 
 > ### <a name='spacing'>Spacing</a>
 
-  - Use soft tabs of four spaces
+  - Use soft tabs of four spaces.
 
 	```javascript
 	// Bad
@@ -57,7 +58,7 @@ JavaScript Style Guide
 	}
 	```
 
-  - Place one space before leading braces and after commas
+  - Place one space before leading braces and after commas.
 
 	```javascript
 	// Bad
@@ -81,7 +82,7 @@ JavaScript Style Guide
 	});
 	```
 
-  - Use indentation when chaining
+  - Use indentation when chaining.
 
 	```javascript
 	// Bad
@@ -109,7 +110,7 @@ There are those out there who do not believe in the semicolon, but alas, we do! 
 ----
 > ### <a name='commas'>Commas</a>
 
-  - **Leading? Nope.** This style has it's benefits for sure in troubleshooting visually, but really we should all be linting our code anyways, right? If you find this is an issue, make sure you've got lint running and you should be good to go.
+  - **Leading? Nope.** This style has helps when troubleshooting visually, but we should all be linting our code anyways, right? If you find this is an issue, make sure you've got lint running and you should be good to go.
     
 	```javascript
 	// This is bad
@@ -129,7 +130,7 @@ There are those out there who do not believe in the semicolon, but alas, we do! 
 ----
 > ### <a name='braces'>Braces</a>
 
-  - **Functions:** Always use braces. This just helps with readability in general. Awkward multiple line statements are bound to occur that may not make sense immediately to another developer who is  skimming over code. Braces help ensure blocks are well defined with a good visual weight.
+  - **Functions:** Always use braces. This helps with readability in general. Awkward multiple line statements are bound to occur that may not make sense immediately to another developer who is  skimming over your code. Braces help ensure blocks are well defined with a good visual weight.
 
 	```javascript
 	// Bad
@@ -162,8 +163,7 @@ There are those out there who do not believe in the semicolon, but alas, we do! 
 	var name = 'Reptar';
 	```
 
-  - Use commonsense with string length before wrapping it across multiple lines.
-  - Build strings using array concatenation (mainly for performance benefits in Internet Explorer).
+  - Use commonsense when deciding to wrap strings across multiple lines. Build wrapped strings using array concatenation (mainly for performance benefits in Internet Explorer).
 
 	```javascript
 	// Bad
@@ -185,35 +185,37 @@ There are those out there who do not believe in the semicolon, but alas, we do! 
 
 A good rule of thumb is somewhere between 80 and 120 lines of code. While we don't have an explicit standard, just try and be conscious of long lines.
 
-Really this has two benefits:
+Keeping line length under control has these two main benefits:
 
-  1. General readability in that you don't have to scroll horizontally to see the end of some lines.
-  2. Side-by-side views are more useful when you're code doesn't cover the whole width of your 20" widescreen monitor.
+  1. You don't have to scroll horizontally to see the end of the line.
+  2. Side-by-side views are more useful when your code doesn't cover the whole width of your 20" wide-screen monitor.
 
 
 ----
 > ### <a name='comments'>Comments</a>
 
-  - **Placement:** Comments should be placed according to your commonsense. If you think that you won't remember why you did something after a month of vacation, then make a note. Don't explain every nook and cranny though.
-  - **Format:**
+  - **Placement:** General rule of thumb: if you think that you won't remember why you did something after a month of vacation, then make a note. If it's something you had to learn how to do and isn't in the beginner's tutorials, then make a note.
+
+  - **Formatting:**
+
     * Single line comments should use the double forward slash with a space after the slashes.
     
-	```javascript
-	//Bad comment
-
-	// Good comment
-	```
+		```javascript
+		//Bad comment
+	
+		// Good comment
+		```
 
     * Multiple line comments should use the block comment style.
 
-	```javascript
-	/*
-		Comments that span multiple lines.
-		Are better off in a simple, unadorned block.
-	*/
-	```
+		```javascript
+		/*
+			Comments that span multiple lines.
+			Are better off in a simple, unadorned block.
+		*/
+		```
 
-  - Avoid interrupting cow goes moo. Interrupting comments do not have a place in our world. They can go usually go elsewhere really easily and be just as effective.
+  - Avoid interrupting cow goes moo. Interrupting comments do not have a place in our world. They can go elsewhere easily and be just as effective.
 
 	```javascript
 	function sample(param1, param2, /* OPTIONAL */ param3) {
@@ -221,7 +223,17 @@ Really this has two benefits:
 	}
 	```
 
-  - Regions are OK to use.
+  - Regions are OK to use when supported by your environment.
+
+	```javascript
+	//#region Sample Code
+	
+	function sample() {
+
+	}
+
+	//#endregion
+	```
 
 
 ----
@@ -253,6 +265,7 @@ Really this has two benefits:
 	```
 
   - **Hoisting:** Be aware that variable declarations get hoisted to the top of their scope. Function *declarations* (not function *expressions*) are hoisted to the top of their scope as well. Function expressions have their host variable name hoisted to the top of their scope, but not their function body or function name.
+ 
     * *Function Declaration:*
 
 	```javascript
@@ -278,19 +291,26 @@ Really this has two benefits:
 > ### <a name='naming'>Naming Conventions</a>
 
   - **General Guidelines:**
-    * *Name Choices:* Avoid using abbreviations (use `getWindow` instead of `getWin`). Don't use hungarian notation `strName` to note the type of the variable. Only use the underscore character to prefix names of private members.
+ 
+    * *Name Choices:* Avoid using abbreviations (use `getWindow` instead of `getWin`). Don't use hungarian notation (`strName`) to note the type of the variable. Only use the underscore character to prefix names of private members.
+
     * *Reserved Words:* Be aware of and do not use [reserved words](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Reserved_Words) as keys. 
+
   - **Variables:** Use camel casing. Example: `backgroundColor`.
+
   - **Properties:** Use camel casing. Example: `element.backgroudColor`.
+
   - **Classes/Constructors:** Use pascal casing. Example: `function Dog() { }`.
+
   - **Constants:** Use pascal casing. Example: `var DOMElementId = 'firstName';`.
+
   - **File Names:** Use camel casing. Example: `contactRibbon.js`.
 
 
 ----
 > ### <a name='literals'>Literals</a>
 
-  - Objects should use object literal. This style is just plain cleaner and simpler
+  - Objects should be defined using literal notation -- it's just cleaner.
 
 	```javascript
 	// Bad
@@ -305,7 +325,7 @@ Really this has two benefits:
 	};
 	```
 
-  - Arrays should use array literal as well.
+  - Arrays should be defined using literal notation as well.
 
 	```javascript
 	// Bad
@@ -322,10 +342,26 @@ Really this has two benefits:
 ----
 > ### <a name='functions'>Functions</a>
 
-  - **Length:** Use commonsense, if your function is starting to look really, really long then chunk it up into pieces. General rule of thumb is you should start to get scared of the length if it is about a screen-height's worth of code.
-  - **Anonymous:** Anonymous functions (such as with inline callbacks) simply put should almost never be anonymous. Functions always serve a purpose and thus should always deserve a name. This will help greatly with stack traces. If a client sends you a list of anonymous -> anonymous -> anonymous, that really won't help you troubleshoot a problem, will it?
-  - **Closures:** Closures are very, very handy but be wary of circular references and the memory leaks they can bring about in IE.
-  - **Callbacks:** If you have a lot of asynchronous calls to make and have a bunch of inline callbacks, you may start to notice a sort of pyramid shape to your code. Try to avoid this and split out your inline callbacks out.
+  - **Length:** If your function is starting to look really long then chunk it up into pieces. General rule of thumb: you should definitely be considering refactoring and chunking if the length of your function is about a full screen-height's worth of code.
+
+  - **Anonymous:** Anonymous functions (such as may exist in the form of inline callbacks), simply put, should almost never be anonymous. Functions always serve a purpose and thus always deserve a name. Naming all functions will help greatly with stack traces if your code ever encounters an error. If a client sends you a stack trace consisting entirely of anonymous -> anonymous -> anonymous, that won't help you troubleshoot the problem, will it?
+
+	```javascript
+	// Bad
+	var errorHandler = function() {
+
+	};
+
+	// Good
+	var errorHandler = function onError() {
+
+	};
+
+	```
+
+  - **Closures:** Closures are very, very handy *but* be wary of circular references and the memory leaks they can bring about in IE.
+
+  - **Callbacks:** If you have a lot of asynchronous calls to make and have a bunch of inline callbacks, you may start to notice a sort of pyramid shape to your code. Try to avoid this and split your callbacks out.
 
 	```javascript
 	// Bad
@@ -352,7 +388,7 @@ Really this has two benefits:
 ----
 > ### <a name='comparisons'>Comparisons</a>
 
-  - **Equality:** Use strict comparisons (`===` and `!==`) always as opposed to Type-converting (abstract) comparisons. The only exception to this would be for checking if something is null *or* undefined.
+  - **Equality:** Always use strict comparisons (`===` and `!==`) as opposed to type-converting (abstract) comparisons (`==` and `!=`). The only exception to this rule would be for checking if something is null *or* undefined.
 
 	```javascript
 	// Bad
@@ -372,6 +408,7 @@ Really this has two benefits:
 
 	// Good
 	var isMatch = (name === 'Reptar' && type === 'dinosaur');
+
 	if (isMatch) {
 		// ... implementation ...
 	}
@@ -381,17 +418,28 @@ Really this has two benefits:
 ----
 > ### <a name='types'>Type Checking</a>
 
-  - **String:** `typeof variable === 'string'`
-  - **Number:** `typeof variable === 'number'`
-  - **Boolean:** `typeof variable === 'boolean'`
-  - **Object:** `typeof variable === 'object'`
-  - **Array:** `Array.isArray(arrayLikeObject)`
-  - **Null:** `variable === null`
-  - **Null or Undefined:** `variable == null`
-  - **Undefined:** `typeof variable === 'undefined'`
-  - **Instance of an Object:** `classInstance.Type === 'className'`
+  - **String:** `typeof variable === 'string'`.
+
+  - **Number:** `typeof variable === 'number'`.
+
+  - **Boolean:** `typeof variable === 'boolean'`.
+
+  - **Object:** `typeof variable === 'object'`.
+
+  - **Array:** `Array.isArray(arrayLikeObject)`.
+
+  - **Null:** `variable === null`.
+
+  - **Null or Undefined:** `variable == null`.
+
+  - **Undefined:** `typeof variable === 'undefined'`.
+
+  - **Instance of an Object:** `classInstance.Type === 'className'`.
+
     * *Note:* We are purposefully avoiding the usage of `instanceof` in this case because it is unsafe across dialogs/iframes. If the class definition is reloaded in another context (or frame/window) and objects from one context are sent to another context, the `instanceof` check may fail. This does require some extra plumbing, but it is minimal.
+
   - **Type Conversion:** When converting a string to an integer using `parseInt()`, always pass in the radix. Therefore instead of `parseInt('2');` use `parseInt('2', 10);`.
+
   - **Type Coercion:** Coercion is OK to use when it makes sense, and if it looks like it might be confusing, change your implementation or wrap it in parenthesis.
 
 	```javascript
@@ -408,7 +456,7 @@ Really this has two benefits:
 ----
 > ### <a name='namespacing'>Namespacing</a>
 
-Namespacing should be used to group functions together and to help avoid pollution of the global namespace. There are several different ways to namespace your code, but it is preferable to create our namespaces and scopes using an Immediately Invoked Function Expressions (IIFE). This is the cleaner way of organizing your code. If you use object literals to define a namespace, you have to name all your functions twice. With the IIFE pattern you have better control of private vs public members. Also, as part of good styling keep the invocation of your IIFE inside the parenthesis that contain it.
+Namespacing should be used to group functions together and to help avoid pollution of the global namespace. There are several different ways to namespace your code, but it is preferable to create our namespaces and scopes using an Immediately Invoked Function Expressions (IIFE). This is the cleaner way of organizing your code. If you use object literals to define a namespace/block/class-like-object, you have to name all your functions twice. With the IIFE pattern you have better control of private vs public members. Also, as part of good styling keep the invocation of your IIFE inside the parenthesis that contain it.
 
 	```javascript
 	// Bad
@@ -442,7 +490,7 @@ Namespacing should be used to group functions together and to help avoid polluti
 ----
 > ### <a name='global'>Global</a>
 
-  - **Pollution:** You too can prevent global namespace pollution. Only add objects/variables to the global namespace if necessary, otherwise keep it in the normal scope. In general wrap all of your code in an IIFE block that is in strict mode (`'use strict';` is set) and pass in a reference to the global object to more vividly declare your exports.
+  - **Pollution:** You too can prevent global namespace pollution. Only add objects/variables to the global namespace if necessary, otherwise keep it in the normal scope. In general wrap all of your code in an IIFE block that is in strict mode (`'use strict';` is set) and pass in a reference to the global object to more vividly define your exports.
 
 	```javascript
 	// Bad
@@ -469,25 +517,68 @@ Namespacing should be used to group functions together and to help avoid polluti
 	}(this));
 	```
 
-  - **Performance:** JavaScript searches up the scope chain for variables; globals take the longest to find. Therefore if you must define a global, if you use it more than once in a block, assign a reference to it in a local variable.
+  - **Performance:** JavaScript searches up the scope chain for variables and thus globals take the longest to find. Therefore if you must define a global and you use that global variable more than once in a block, assign a local reference to the global.
+
+	```javascript
+	// Bad
+	var x = 2;
+	(function () {
+		'use strict';
+
+		x = x + 2;
+
+		// ...
+
+		x = x + y;
+	}());
+
+
+	// Good
+	var x = 2;
+
+	(function () {
+		'use strict';
+		var count = x;
+		
+		count = count + 2;
+
+		// ...
+
+		count = count + y;
+	}());
+	```
+
+----
+> ### <a name='errors'>Errors</a>
+
+  - **Detail:** Keep in mind that you may never expect an error to happen, but when it does, you'll be really frustrated if you didn't put in the extra minute to write a relevant and detailed message.
+
+  - **Consistency:** If you handle an error with an alert in one place, it should be handled with alerts everywhere. If you use a modal dialog for one error, consider using that everywhere as well.
+
+  - **Messaging:** When handling errors, note these two great guidelines for messaging:
+
+    * Can we tell the user why the error occurred?
+    * Can we tell the user what to do to fix it?
+
+	The answer to these is not always yes, but if either is possible, then they should be included in the messaging.
 
 
 ----
 > ### <a name='prototypes'>Prototypes</a>
 
-Do not extend native object prototypes as it adversely affects re-factoring code down the line. The prime example of this I always run into is with Date.js. If you include it, find out it has a problem, then need to swap it out for something like Moment.js, you are going to have the lease fun experience of your life trying to hunt down all the places it is used.
+**Do not** extend native object prototypes, it will make re-factoring dependent code down the line a lot more difficult. A prime example of this is with Date.js. If you include it, find out it has a problem, then need to swap it out for something like Moment.js, you are going to have the least fun experience of your life trying to hunt down all the places it is used.
 
 
 ----
 > ### <a name='async'>Async</a>
 
-If you have the option between asynchronous and synchronous. Always try to start the asynchronous route. If you end up going synchronous, you better have a very good explanation of why. Locking up the User Interface is no good for anyone.
+If you have the option between asynchronous and synchronous, always try to start down the asynchronous route. If you end up going synchronous, you better have a very good explanation of why. Locking up the User Interface is no good for anyone.
 
 
 ----
 > ### <a name='nonono'>Eval, With, Object.freeze, Object.seal, Object.preventExtensions ...</a>
 
-There is about a one in a million chance that you will need to use any of this stuff. Stay clear unless you know for sure what you're doing with them, and even then, probably still stay clear of them.
+There is about a one in a million chance that you will need to use any of this stuff on a day-to-day basis. Stay clear unless you know for sure what you're doing with them, and even then, probably still stay clear of them.
 
 
 ----
