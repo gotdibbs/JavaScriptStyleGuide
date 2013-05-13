@@ -268,23 +268,23 @@ Keeping line length under control has these two main benefits:
  
     * *Function Declaration:*
 
-	```javascript
-	function sample() {
-		// ... implementation ...
-	}
-	```
+		```javascript
+		function sample() {
+			// ... implementation ...
+		}
+		```
 
     * *Function Expression:*
     
-	```javascript
-	var x = function x() { 
-		// ... implementation ...
-	};
-
-	(function () {
-		// ... implementation ...
-	});
-	```
+		```javascript
+		var x = function x() { 
+			// ... implementation ...
+		};
+	
+		(function () {
+			// ... implementation ...
+		});
+		```
 
 
 ----
@@ -458,33 +458,32 @@ Keeping line length under control has these two main benefits:
 
 Namespacing should be used to group functions together and to help avoid pollution of the global namespace. There are several different ways to namespace your code, but it is preferable to create our namespaces and scopes using an Immediately Invoked Function Expressions (IIFE). This is the cleaner way of organizing your code. If you use object literals to define a namespace/block/class-like-object, you have to name all your functions twice. With the IIFE pattern you have better control of private vs public members. Also, as part of good styling keep the invocation of your IIFE inside the parenthesis that contain it.
 
-	```javascript
-	// Bad
-	var Container = [
-		_isOpen: false,
-		
-		open: function open() {
-			this._isOpen = true;
-		}
+```javascript
+// Bad
+var Container = [
+	_isOpen: false,
+	
+	open: function open() {
+		this._isOpen = true;
+	}
+};
+
+// Good
+var Container = (function createNamespace() {
+
+	var _isOpen = false;
+
+	function open() {
+		isOpen = true;
+	}
+
+	// Expose public members below
+	return {
+		open: open
 	};
 
-
-	// Good
-	var Container = (function createNamespace() {
-
-		var _isOpen = false;
-
-		function open() {
-			isOpen = true;
-		}
-
-		// Expose public members below
-		return {
-			open: open
-		};
-
-	}());
-	```
+}());
+```
 
 
 ----
