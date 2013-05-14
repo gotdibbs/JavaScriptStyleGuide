@@ -11,7 +11,7 @@ JavaScript Style Guide
   	3. [Commas](#commas)
   	4. [Braces](#braces)
   	5. [Strings](#strings)
-  	6. [Line length](#linelength)
+  	6. [length](#length)
   	7. [Comments](#comments)
   2. Style
   	1. [Declarations](#declarations)
@@ -106,6 +106,8 @@ JavaScript Style Guide
 
 There are those out there who do not believe in the semicolon, but alas, we do! Semicolons aid in **readability** and **minification**. Two things that are very important, so just remember to use them.
 
+Note that semicolons aren't necessary at the end of function *declarations*, just at the end of function *expressions*. Semicolons serve to separate *statements* from each other and function *declarations* are not statements.
+
 
 ----
 > ### <a name='commas'>Commas</a>
@@ -113,7 +115,7 @@ There are those out there who do not believe in the semicolon, but alas, we do! 
   - **Leading? Nope.** This style has helps when troubleshooting visually, but we should all be linting our code anyways, right? If you find this is an issue, make sure you've got lint running and you should be good to go.
     
 	```javascript
-	// This is bad
+	// Bad
 	var x = 2
 	  , y = 3;
 	```
@@ -121,7 +123,7 @@ There are those out there who do not believe in the semicolon, but alas, we do! 
   - **Trailing? Yep.** Much cleaner looking and not as hard to type.
     
 	```javascript
-	// This is good
+	// Good
 	var x = 2,
 	    y = 3;
 	```
@@ -145,7 +147,7 @@ There are those out there who do not believe in the semicolon, but alas, we do! 
 		return false;
 	}
 
-	// Good
+	// Acceptable (only when immediately exiting a function, ex. argument validation)
 	if (true) { return false; }
 	```
 
@@ -181,14 +183,17 @@ There are those out there who do not believe in the semicolon, but alas, we do! 
 
 
 ----
-> ### <a name='linelength'>Line Length</a>
+> ### <a name='linelength'>Length</a>
 
-A good rule of thumb is somewhere between 80 and 120 lines of code. While we don't have an explicit standard, just try and be conscious of long lines.
+  - **Line Length:** General rule of thumb is somewhere between 80 and 120 lines of code. No more than 120 characters though. While we don't want to have an explicit standard, just try and be conscious of long lines.
 
-Keeping line length under control has these two main benefits:
+  Keeping line length under control has these two main benefits:
+	
+  	* You don't have to scroll horizontally to see the end of the line.
 
-  1. You don't have to scroll horizontally to see the end of the line.
-  2. Side-by-side views are more useful when your code doesn't cover the whole width of your 20" wide-screen monitor.
+  	* Side-by-side views are more useful when your code doesn't cover the whole width of your 20" wide-screen monitor.
+
+  - **Function Length:** Even though you may be able to collapse the function contents and logic in your editor, long functions are inherently harder to debug. Longer stack traces are better than longer functions. If your function is starting to look really long then chunk it up into pieces. General rule of thumb: you should be considering refactoring and chunking if the length of your function is about a full screen-height's worth of code.
 
 
 ----
@@ -196,7 +201,7 @@ Keeping line length under control has these two main benefits:
 
   - **Placement:** General rule of thumb: if you think that you won't remember why you did something after a month of vacation, then make a note. If it's something you had to learn how to do and isn't in the beginner's tutorials, then make a note.
 
-  - **Formatting:**
+  - **Formatting:** The exception to the below rules would be for documenting libraries. Fancier comments are sometimes necessary depending on your documentation generation strategy -- for example VSDoc.
 
     * Single line comments should use the double forward slash with a space after the slashes.
     
@@ -218,7 +223,19 @@ Keeping line length under control has these two main benefits:
   - Avoid interrupting cow goes moo. Interrupting comments do not have a place in our world. They can go elsewhere easily and be just as effective.
 
 	```javascript
-	function sample(param1, param2, /* OPTIONAL */ param3) {
+	// Bad
+	function sample(param1, /* OPTIONAL */ param2, param3) {
+		// ... implementation ...
+	}
+
+	// Good
+	/// <summary>
+	/// Sample function.
+	/// </summary>
+	/// <param name="param1">Param #1</param>
+	/// <param name="param2">Param #2</param>
+	/// <param name="param3" optional="true">Param #3</param> 
+	function sample(param1, param2, param3) {
 		// ... implementation ...
 	}
 	```
@@ -239,7 +256,7 @@ Keeping line length under control has these two main benefits:
 ----
 > ### <a name='declarations'>Declarations</a>
 
-  - **Variables:** Should be declared at the start of a block and should be declared once. Each block should only have one `var` statement.
+  - **Variables:** Should be declared at the start of a block and should be declared once. Each block should only have one `var` statement. A side-benefit of this is that if you have a large number of variables clustered at the top, you may need to rethink your function length and chunk it into more manageable pieces.
 
 	```javascript
 	// Bad
@@ -300,11 +317,15 @@ Keeping line length under control has these two main benefits:
 
   - **Properties:** Use camel casing. Example: `element.backgroudColor`.
 
-  - **Classes/Constructors:** Use pascal casing. Example: `function Dog() { }`.
-
   - **Constants:** Use pascal casing. Example: `var DOMElementId = 'firstName';`.
 
   - **File Names:** Use camel casing. Example: `contactRibbon.js`.
+
+  - **Functions as Classes/Constructors:** Use pascal casing. Example: `function Dog() { }`.
+
+  - **Other Functions:** Use pascal casing, unless used as a class or constructor. Example: `function createDog() { }`.
+
+  - **Private Members:** Private functions, variables, et cetera should be prefixed with an underscore. Example: `function _executeInternal() { }`.
 
 
 ----
@@ -335,14 +356,13 @@ Keeping line length under control has these two main benefits:
 
 	// Good
 	var x = [2, 3];
+	```
 
-  - [Namespaces should not be defined as literals. They are messy.](#namespaces)
+  - Namespaces should not be defined as literals. They are messy. (See [above](#namespaces).)
 
 
 ----
 > ### <a name='functions'>Functions</a>
-
-  - **Length:** If your function is starting to look really long then chunk it up into pieces. General rule of thumb: you should definitely be considering refactoring and chunking if the length of your function is about a full screen-height's worth of code.
 
   - **Anonymous:** Anonymous functions (such as may exist in the form of inline callbacks), simply put, should almost never be anonymous. Functions always serve a purpose and thus always deserve a name. Naming all functions will help greatly with stack traces if your code ever encounters an error. If a client sends you a stack trace consisting entirely of anonymous -> anonymous -> anonymous, that won't help you troubleshoot the problem, will it?
 
@@ -353,7 +373,7 @@ Keeping line length under control has these two main benefits:
 	};
 
 	// Good
-	var errorHandler = function onError() {
+	var onError = function onError() {
 
 	};
 
@@ -460,7 +480,7 @@ Namespacing should be used to group functions together and to help avoid polluti
 
 ```javascript
 // Bad
-var Container = [
+var Container = {
 	_isOpen: false,
 	
 	open: function open() {
